@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>로그인 페이지</h1>
+		<form action="/login" method="post">
+			<input type="text" name="id" placeholder="아이디"><br>
+			<input type="text" name="pw" placeholder="비밀번호"><br>
+			<select name="state">
+				<option value="0" selected>로그아웃(0)</option>
+				<option value="1">로그인유지(1)</option>
+				<option value="2">아이디만(2)</option>
+			</select><br>
+			<button>제출</button>
+		</form>
+	</body>
+</html>
