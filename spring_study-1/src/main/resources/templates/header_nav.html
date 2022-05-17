@@ -1,0 +1,81 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+			    <a class="navbar-brand" href="/">Spring_shop_admin</a>
+			    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			      <span class="navbar-toggler-icon"></span>
+			    </button>
+				<div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class=nav-link href="/mem/admin/list.do">
+								멤버리스트(관리)
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class=nav-link href="/cate/list.do">
+								카테고리스트(관리)
+							</a>
+						</li>
+						  <li class="nav-item dropdown">
+						    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">아이템(관리)</a>
+						    <ul class="dropdown-menu">
+						      <li><a class="dropdown-item" href="/item/ajax_managing.do">AJAX아이템리스트</a></li>
+						      <li><hr class="dropdown-divider"></li>
+						      <li><a class="dropdown-item" href="/item/list.do">아이템리스트</a></li>
+						      <li><hr class="dropdown-divider"></li>
+						      <li><a class="dropdown-item" href="/item/queryList.do">아이템리스트(@Query JPQL)</a></li>
+						      <li><hr class="dropdown-divider"></li>
+						      <li><a class="dropdown-item" href="/item/entityGraphList.do">아이템리스트(@EntityGraph Real Join)</a></li>
+						      <li><hr class="dropdown-divider"></li>
+						      <li><a class="dropdown-item" href="/item/list/1">아이템리스트(Pageable Sort)</a></li>
+						    </ul>
+						  </li>					  
+					</ul>
+					<div th:if="${session.memVo}">
+						<!-- ${session.memVo.id} = null.id => 오류 -->
+						<!-- <span th:if="${session.memVo}!=null" th:text="${session.memVo.id}"></span> -->
+						<!-- <span th:if="${session.memVo}" th:text="${session.memVo.id}"></span> -->
+						<span th:text="${session.memVo}?${session.memVo.id}:''"></span>
+						(<span th:text="${session.memVo?.name}"></span>)
+						님 로그인 
+						&nbsp;/&nbsp;
+						<a class="btn btn-outline-primary position-relative" href="/itemBasket/list.do">
+							장바구니
+							<span class="badge bg-secondary" th:text=${session.basketCount}></span>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+								  th:text=${session.basketCountSum}></span>
+						</a>
+						&nbsp;/&nbsp;
+						<a href="/mem/logout.do">
+							로그아웃
+						</a>
+					</div>
+	 				<div class="d-flex" th:if="!${session.memVo}">
+						<a 	href="/mem/login">
+							로그인
+						</a>&nbsp;/&nbsp; 
+						<a 	href="/mem/signup">
+							회원가입
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	<script th:if="${session.msg}" th:inline="javascript">
+		let msg=[[${session.msg}]];
+		alert(msg);
+		[[${#session.removeAttribute("msg")}]];
+	</script>
+	</body>
+</html>
+
+
+

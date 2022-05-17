@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<style>
+		table{
+			text-align: center;
+		}
+		</style>
+	</head>
+	<body>
+		<!-- jsp@include file="header_nav.html" -->
+		<header th:insert="header_nav.html"></header>
+		<!-- request.getAttribute("test") -->
+		<h1>아이템 리스트</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ITEM_NUM</th>
+					<th>NAME</th>
+					<th>TITLE</th>
+					<th>COUNT</th>
+					<th>PRICE</th>
+					<!-- <th>COLOR</th>
+					<th>MAIN_IMG</th>
+					<th>DETAIL_IMG</th>
+					<th>MODEL_NUM</th> -->
+					<th>MEMBER_ID(MEMBER_NAME)</th>
+					<!-- <th>POST_TIME</th>
+					<th>SALE_TIME</th>
+					<th>SALE_END_TIME</th> -->
+					<th>STATE</th>
+					<th>CATE_NUM(CATE_NAME)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item:${itemList}">
+					<td th:text="${item.itemNum}"></td>
+					<td th:text="${item.name}"></td>
+					<td th:text="${item.title}"></td>
+					<td th:text="${item.count}"></td>
+					<td th:text="${item.price}"></td>
+					<!-- <td th:text="${item.color}"></td>
+					<td th:text="${item.mainImg}"></td>
+					<td th:text="${item.detailImg}"></td>
+					<td th:text="${item.modelNum}"></td> -->
+					<td>
+						<span th:text="${item.member?.id}"></span>
+						(<span th:text="${item.member?.name}"></span>)
+					</td>
+					<!-- <td th:text="${item.postTime}"></td>
+					<td th:text="${item.saleTime}"></td>
+					<td th:text="${item.saleEndTime}"></td> -->
+					<td th:text="${item.state}"></td>
+					<td>
+						<span th:text="${item.cate?.cateNum}"></span>
+						(<span th:text="${item.cate?.name}"></span>)
+					</td>
+				</tr>
+			</tbody>	
+		</table>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+

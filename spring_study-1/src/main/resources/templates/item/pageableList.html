@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<style>
+		table{
+			text-align: center;
+		}
+		</style>
+	</head>
+	<body>
+		<!-- jsp@include file="header_nav.html" -->
+		<header th:insert="header_nav.html"></header>
+		<!-- request.getAttribute("test") -->
+		<h1>아이템 리스트</h1>
+		<form action="/item/list/1">
+			<div class="input-group">
+			  <select name="sort" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+			    <option selected>정렬할 칼럼</option>
+			    <option value="itemNum">itemNum</option>
+			    <option value="name">name</option>
+			    <option value="title">title</option>
+			    <option value="price">price</option>
+	
+			  </select>
+	
+			  <select name="desc" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+			    <option selected>정렬순서</option>
+	
+			    <option value="desc">큰거부터(desc)</option>
+			    <option value="asc">작은거부터(asc)</option>
+			  </select >
+			  <button class="btn btn-outline-primary" type="submit">Button</button>
+			</div>
+		</form>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ITEM_NUM</th>
+					<th>NAME</th>
+					<th>TITLE</th>
+					<th>COUNT</th>
+					<th>PRICE</th>
+					<th>멤버</th>
+					<th>STATE</th>
+					<th>카테고리</th>
+					<!-- <th>commentList</th> -->
+					<th>장바구니</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item:${itemList}">
+					<td th:text="${item.itemNum}"></td>
+					<td th:text="${item.name}"></td>
+					<td th:text="${item.title}"></td>
+					<td th:text="${item.count}"></td>
+					<td th:text="${item.price}"></td>
+					<td>
+						<span th:text="${item.member?.id}"></span>
+						(<span th:text="${item.member?.name}"></span>)
+					</td>
+					<td th:text="${item.state}"></td>
+					<td>
+						<span th:text="${item.cate?.cateNum}"></span>
+						(<span th:text="${item.cate?.name}"></span>)
+					</td>
+					<td>
+						<form action="/itemBasket/insert.do" method="post">
+							<input type="hidden" name="itemNum" th:value="${item.itemNum}">
+							<div class="input-group">
+							  <select class="form-select" name="count">
+							    <option selected value="1">1</option>
+							    <option value="2">2</option>
+							    <option value="3">3</option>
+							    <option value="4">4</option>
+							  </select>
+							  <button class="btn btn-outline-primary" type="submit">추가</button>
+							</div>
+						</form>
+					</td>
+					<!-- <td th:text="${item.itemComment}"></td> -->
+				</tr>
+			</tbody>	
+		</table>
+		<p>
+			totalPage : <strong th:text="${itemList.totalPages}"></strong>
+			nowPage : <strong th:text="${itemList.number+1}"></strong>
+			hasPrev : <strong th:text="${itemList.hasPrevious}"></strong>
+			hasNext : <strong th:text="${itemList.hasNext}"></strong>
+			param.sort: <strong th:text="${param.sort}"></strong>
+		</p>
+		<!-- pageStart pageEnd pageNow -->
+		<div th:with="totalPages=${itemList.totalPages},
+					  nowPage=${itemList.number+1},
+					  hasNext=${itemList.hasNext},
+					  hasPrev=${itemList.hasPrevious},
+					  startPage=${((nowPage-3)<=0)?1:nowPage-3},
+					  endPage=${((nowPage+3)>=totalPages)?totalPages:nowPage+2}">
+		<nav th:insert="/pagination.html"></nav>
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
