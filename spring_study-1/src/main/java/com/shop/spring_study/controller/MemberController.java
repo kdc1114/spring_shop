@@ -43,10 +43,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	public String login(
-			String id,
-			String pw,
-			HttpSession session) { // 오버로딩
+	public String login(String id,String pw,HttpSession session) { // 오버로딩
 		// 톰캣서버에 필요한 객체가 있다면 매개변수로 작성하면 사용가능
 		System.out.println(id+"/"+pw);
 		MemberVo memVo=mr.findByIdAndPw(id, pw);
@@ -77,10 +74,9 @@ public class MemberController {
 	public String signup(MemberVo memVo,HttpSession session) {
 		boolean insert=false;
 		try {
-			// 기본으로 제공되는 함수
+			// 기본으로 제공되는 함수 findById
 			Optional<MemberVo> memOption=mr.findById(memVo.getId());
-			// 있는지 검사해서 없을때만 저장
-			if(memOption.isEmpty()) {
+			if(memOption.isEmpty()) {// 있는지 검사해서 없을때만 저장
 				MemberVo insertMem=mr.save(memVo);
 				System.out.println(insertMem);
 				if(insertMem != null) {insert=true;}

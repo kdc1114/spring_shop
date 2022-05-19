@@ -23,7 +23,7 @@ public class MemberVo {
 	private String addressDetail;
 	
 	@Column(name="signup_time",nullable = true,insertable = false,updatable=false)
-	private	Date signupTime;    
+	private	Date signupTime;
 	
 	// new SimpleDateFormat("yyyy-MM-dd").parse("1986-05-24")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
