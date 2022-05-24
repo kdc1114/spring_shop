@@ -19,6 +19,7 @@ public interface ItemRepository extends CrudRepository<ItemVo, Integer>{
 	// sub query Join 이 아니라 진짜 Join 을 하고 싶다면 @EntityGraph 를 작성
 	@EntityGraph(attributePaths = {"member","cate"})
 	public Iterable<ItemVo> findAllByOrderByPostTime();
+	public Iterable<ItemVo> findAllByOrderByPostTimeDesc();
 	
 	// Page<ItemVo> Page를 쓰려면 Pageable 를 사용해야한다.
 	public Page<ItemVo> findAll(Pageable pageable);

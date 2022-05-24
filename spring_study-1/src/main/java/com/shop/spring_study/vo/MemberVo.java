@@ -1,12 +1,17 @@
 package com.shop.spring_study.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -29,6 +34,36 @@ public class MemberVo {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	private byte grade;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id",insertable = false,updatable = false)
+	private List <ItemBasketVo> itemBasket; // OneToMany 라서 List로 받아야한다.
+	
+	// JPQL이아닌 네이티브로 해서 DB테이블 이름으로 item_basket
+	@Formula(value = "(SELECT COUNT(b.count) FROM item_basket b WHERE b.member_id=id)")// SubQuery
+	Integer basketCount;
+	
+	@Formula(value = "(SELECT SUM(b.count) FROM item_basket b WHERE b.member_id=id)")
+	Integer basketCountSum;
+	
+	public Integer getBasketCountSum() {
+		return basketCountSum;
+	}
+	public void setBasketCountSum(Integer basketCountSum) {
+		this.basketCountSum = basketCountSum;
+	}
+	public Integer getBasketCount() {
+		return basketCount;
+	}
+	public void setBasketCount(Integer basketCount) {
+		this.basketCount = basketCount;
+	}
+	public List<ItemBasketVo> getItemBasket() {
+		return itemBasket;
+	}
+	public void setItemBasket(List<ItemBasketVo> itemBasket) {
+		this.itemBasket = itemBasket;
+	}
 	public String getAddressDetail() {
 		return addressDetail;
 	}

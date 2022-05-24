@@ -13,6 +13,7 @@
 		<header th:insert="header_nav.html"></header>
 		<!-- request.getAttribute("test") -->
 		<h1>아이템 리스트</h1>
+		<h3><a href="/item/seller/insert.do">아이템 등록</a></h3>
 		<form action="/item/list/1">
 			<div class="input-group">
 			  <select name="sort" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
@@ -39,6 +40,7 @@
 					<th>ITEM_NUM</th>
 					<th>NAME</th>
 					<th>TITLE</th>
+					<th>IMG</th>
 					<th>COUNT</th>
 					<th>PRICE</th>
 					<th>멤버</th>
@@ -53,6 +55,9 @@
 					<td th:text="${item.itemNum}"></td>
 					<td th:text="${item.name}"></td>
 					<td th:text="${item.title}"></td>
+					<td>
+						<img th:src="@{/public/img/thumb/{img}(img=${item.mainImg})}">
+					</td>
 					<td th:text="${item.count}"></td>
 					<td th:text="${item.price}"></td>
 					<td>

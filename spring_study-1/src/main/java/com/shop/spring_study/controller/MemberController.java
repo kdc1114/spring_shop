@@ -33,7 +33,6 @@ public class MemberController {
 	public String list(Model model) {
 		Iterable<MemberVo> memList=mr.findAllByOrderBySignupTimeDesc();
 		model.addAttribute("memList",memList);
-		model.addAttribute("test", 10);
 		return "/mem/list";
 	}
 	

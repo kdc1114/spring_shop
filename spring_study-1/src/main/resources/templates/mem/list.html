@@ -7,7 +7,7 @@
 		<!-- jsp@include file="header_nav.html" -->
 		<header th:insert="header_nav.html"></header>
 		<!-- request.getAttribute("test") -->
-		<h1>멤버 리스트 test : <b th:text="${test}"></b></h1>
+		<h1>멤버 리스트</h1>
 		<table class="table">
 			<thead>
 				<tr>
@@ -17,6 +17,9 @@
 					<th>NAME</th>
 					<th>ADDRESS</th>
 					<th>SIGNUP_TIME</th>
+					<th>GRADE</th>
+					<!-- <th>ITEMBASKET(LIST)</th> -->
+					<th>장바구니(아이템 수)</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,6 +30,12 @@
 					<td th:text="${mem.name}"></td>
 					<td th:text="${mem.address}"></td>
 					<td th:text="${mem.signupTime}"></td>
+					<td th:text="${mem.grade}"></td>
+					<!-- <td th:text="${mem.itemBasket}"></td> -->
+					<td>
+						<span th:text="${mem.basketCount}"></span>
+						(<span th:text="${mem.basketCountSum}"></span>)
+					</td>
 				</tr>
 			</tbody>	
 		</table>
